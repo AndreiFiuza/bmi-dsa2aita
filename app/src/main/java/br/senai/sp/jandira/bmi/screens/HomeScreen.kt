@@ -129,7 +129,7 @@ fun HomeScreen() {
                             ),
                         leadingIcon = {
                             Icon(
-                                imageVector = Icons.Default.,
+                                imageVector = Icons.Default.Delete,
                                 contentDescription = "",
                                 tint = Color.Blue
                             )
