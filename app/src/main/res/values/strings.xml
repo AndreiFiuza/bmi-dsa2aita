@@ -10,4 +10,11 @@
     <string name="weight">Weight</string>
     <string name="height">Height</string>
     <string name="calculate">Calculate</string>
+    <string name="result">Your BMI Result</string>
+    <string name="classe">You have Class I Obesity</string>
+    <string name="newcalc">New Calc</string>
+    <string name="imc_value">30,6</string>
+    <string name="value_age">50</string>
+    <string name="value_weigth">97 kg</string>
+    <string name="value_height">178 cm</string>
 </resources>

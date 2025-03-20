@@ -10,4 +10,8 @@
     <string name="weight">Peso</string>
     <string name="height">Altura</string>
     <string name="calculate">Calcular</string>
+    <string name="result">Resultado do Seu IMC</string>
+    <string name="classe">Você tem obesidade de Classe I</string>
+    <string name="newcalc">Novo Calculo</string>
+
 </resources>
