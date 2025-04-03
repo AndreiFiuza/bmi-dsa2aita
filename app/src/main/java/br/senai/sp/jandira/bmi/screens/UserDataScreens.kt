@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,20 +28,42 @@ import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun UserDataScreen(modifier: Modifier = Modifier){
+fun UserDataScreen(navegacao: NavHostController?){
+
+    val context = LocalContext.current
+    val userFile = context
+        .getSharedPreferences("user_file", Context.MODE_PRIVATE)
+    val userName = userFile.getString("user_name", "")
+
+    var ageState = remember{
+        mutableStateOf("")
+    }
+    var weightState = remember{
+        mutableStateOf("")
+    }
+    var heightState = remember{
+        mutableStateOf("")
+    }
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -58,7 +81,7 @@ fun UserDataScreen(modifier: Modifier = Modifier){
             .fillMaxSize()
     ){
         Text(
-            text = stringResource(R.string.hi),
+            text = stringResource(R.string.hi) + ", $userName!",
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
             color = Color.White,
@@ -173,8 +196,10 @@ fun UserDataScreen(modifier: Modifier = Modifier){
                         .fillMaxWidth()
                 ){
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = ageState.value,
+                        onValueChange = {
+                            ageState.value = it
+                        },
                         modifier = Modifier
                             .fillMaxWidth(),
                         leadingIcon = {
@@ -191,8 +216,10 @@ fun UserDataScreen(modifier: Modifier = Modifier){
                         shape = RoundedCornerShape(16.dp)
                     )
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = weightState.value,
+                        onValueChange = {
+                            weightState.value = it
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
@@ -210,8 +237,10 @@ fun UserDataScreen(modifier: Modifier = Modifier){
                         shape = RoundedCornerShape(16.dp)
                     )
                     OutlinedTextField(
-                        value = "",
-                        onValueChange = {},
+                        value = heightState.value,
+                        onValueChange = {
+                            heightState.value = it
+                        },
                         modifier = Modifier
                             .fillMaxWidth(),
                         leadingIcon = {
@@ -231,7 +260,14 @@ fun UserDataScreen(modifier: Modifier = Modifier){
 
                 }
                 Button(
-                    onClick = {},
+                    onClick = {
+                        val editor = userFile.edit()
+                        editor.putInt("user_age", ageState.value.toInt())
+                        editor.putFloat("user_weight", weightState.value.toFloat())
+                        editor.putFloat("user_height", heightState.value.toFloat())
+                        editor.apply()
+                        navegacao!!.navigate("bmi_result")
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(16.dp),
@@ -255,5 +291,5 @@ fun UserDataScreen(modifier: Modifier = Modifier){
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    UserDataScreen()
+    UserDataScreen(null)
 }

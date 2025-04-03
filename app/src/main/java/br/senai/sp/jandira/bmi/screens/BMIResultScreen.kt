@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.bmi.screens
 
+import android.content.Context
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,20 +22,34 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
 
 @Composable
-fun BMIResultScreen() {
+fun BMIResultScreen(navegacao: NavHostController?) {
+
+    val userFile = LocalContext.current.
+    getSharedPreferences("user_file", Context.MODE_PRIVATE)
+
+    val userHeight = userFile.getFloat("user_height", 0.0f)
+    val userWeight = userFile.getFloat("user_weight", 0.0f)
+    val userAge = userFile.getInt("user_age", 0)
+
+
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -145,7 +160,7 @@ fun BMIResultScreen() {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.value_age),
+                                    text = "$userAge",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -165,7 +180,7 @@ fun BMIResultScreen() {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.value_weigth),
+                                    text = "$userWeight Kg",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -185,7 +200,7 @@ fun BMIResultScreen() {
                                     fontSize = 20.sp
                                 )
                                 Text(
-                                    text = stringResource(R.string.value_height),
+                                    text = "$userHeight",
                                     color = Color.Black,
                                     fontWeight = FontWeight.Bold,
                                     fontSize = 20.sp
@@ -197,6 +212,7 @@ fun BMIResultScreen() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(200.dp)
+                            .background(Color.Gray)
                     ) {
 
                     }
@@ -227,5 +243,5 @@ fun BMIResultScreen() {
 @Preview
 @Composable
 private fun HomeScreenPreview() {
-    BMIResultScreen()
+    BMIResultScreen(null)
 }

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">BMI</string>
     <string name="welcome">Welcome!</string>
     <string name="your_name">What\'s your name?</string>
     <string name="next">Next</string>
@@ -10,11 +9,28 @@
     <string name="weight">Weight</string>
     <string name="height">Height</string>
     <string name="calculate">Calculate</string>
-    <string name="result">Your BMI Result</string>
-    <string name="classe">You have Class I Obesity</string>
-    <string name="newcalc">New Calc</string>
-    <string name="imc_value">30,6</string>
-    <string name="value_age">50</string>
-    <string name="value_weigth">97 kg</string>
-    <string name="value_height">178 cm</string>
+    <string name="your_result">Your BMI Result</string>
+    <string name="new_calculate">New Calc</string>
+    <string name="under_weight">You are below you ideal weight!</string>
+    <string name="normal_weight">You have normal body weigth!</string>
+    <string name="over_weigth">You are slightly overweigth!</string>
+    <string name="class1_weigth">You have Class I Obesity</string>
+    <string name="class2_weigth">You have Class II Obesity</string>
+    <string name="class3_weigth">You have Class III Obesity</string>
+
+
+
+   <string name="imc_value">30,6</string>
+    <string name="app_name">MyTrips</string>
+    <string name="login">Login</string>
+    <string name="please_sign">Please sign in to continue</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="account">Don\`t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email_icon">Email Icon</string>
+    <string name="lock_icon">Lock Icon</string>
+
+
 </resources>
