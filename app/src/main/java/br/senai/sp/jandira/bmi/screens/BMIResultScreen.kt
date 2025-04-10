@@ -22,8 +22,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -37,6 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import br.senai.sp.jandira.bmi.R
+import br.senai.sp.jandira.bmi.calcs.bmiCalculate
+import br.senai.sp.jandira.bmi.utils.numberConvertToLocale
 
 @Composable
 fun BMIResultScreen(navegacao: NavHostController?) {
@@ -48,7 +48,11 @@ fun BMIResultScreen(navegacao: NavHostController?) {
     val userWeight = userFile.getFloat("user_weight", 0.0f)
     val userAge = userFile.getInt("user_age", 0)
 
-
+    // Obter os daods do imc do usuário
+    val result = bmiCalculate(
+        userWeight.toInt(),
+        userHeight.toDouble().div(100)
+    )
 
     Box(
         modifier = Modifier
@@ -67,7 +71,7 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                 .fillMaxSize()
         ) {
             Text(
-                text = stringResource(R.string.result),
+                text = stringResource(R.string.your_result),
                 fontSize = 32.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.White,
@@ -101,12 +105,7 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                         shape = CircleShape,
                         border = BorderStroke(
                             width = 7.dp,
-                            brush = Brush.linearGradient(
-                                listOf(
-                                    Color(0xFF9D00FF),
-                                    Color(0xFFFF0000),
-                                )
-                            )
+                            color = result.color
 
                         )
                     ) {
@@ -117,7 +116,7 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                             verticalArrangement = Arrangement.Center
                         ) {
                             Text(
-                                text = stringResource(R.string.imc_value),
+                                text = numberConvertToLocale(result.bmi.second),
                                 color = Color.Black,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 35.sp
@@ -126,9 +125,10 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                     }
 
                     Text(
-                        text = stringResource(R.string.classe),
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
+                        text = result.bmi.first,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = result.color,
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(15.dp)
@@ -229,7 +229,7 @@ fun BMIResultScreen(navegacao: NavHostController?) {
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text(
-                            text = stringResource(R.string.newcalc),
+                            text = stringResource(R.string.new_calculate),
                             fontSize = 20.sp
                         )
                     }
